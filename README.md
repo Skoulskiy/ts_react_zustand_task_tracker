@@ -17,7 +17,7 @@ Task Tracker is a browser-based app for managing everyday tasks and tracking the
 * **Centralized state management**: Zustand manages task creation, completion, timer controls, and deletion.
 * **Persistent task data**: tasks and accumulated time are saved in `localStorage`.
 * **Single active timer**: starting a task pauses any other running task.
-* **Static deployment**: GitHub Actions builds and deploys the app to GitHub Pages on pushes to `master`.
+* **Static deployment**: the production build is published from the `gh-pages` branch using GitHub Pages.
 
 ## 🛠️ Tech Stack
 
@@ -30,7 +30,7 @@ Task Tracker is a browser-based app for managing everyday tasks and tracking the
 | **Build Tool** | Vite |
 | **Code Quality** | ESLint |
 | **Data Persistence** | Browser `localStorage` |
-| **Deployment** | GitHub Actions, GitHub Pages |
+| **Deployment** | GitHub Pages |
 
 ## 🚀 Features
 
@@ -67,17 +67,16 @@ npm run lint
 
 ## 🚀 Deployment
 
-The GitHub Actions workflow in `.github/workflows/deploy.yml` builds and deploys the app to GitHub Pages whenever changes are pushed to `master`.
-
-To enable deployment for the repository:
+The production build is published to the `gh-pages` branch. To enable GitHub Pages:
 
 1. Open **Settings → Pages** on GitHub.
-2. Set **Build and deployment → Source** to **GitHub Actions**.
-3. Push to `master` or manually run the **Deploy to GitHub Pages** workflow from the **Actions** tab.
+2. Set **Build and deployment → Source** to **Deploy from a branch**.
+3. Select **gh-pages** as the branch and **/(root)** as the folder.
+4. Click **Save**.
 
-The published app will be available at:
+To publish a new version after making changes, run `npm run build`, copy the contents of `dist` to the root of `gh-pages`, and push the branch.
 
-https://skoulskiy.github.io/ts_react_zustand_task_tracker/
+The app will be available at [skoulskiy.github.io/ts_react_zustand_task_tracker](https://skoulskiy.github.io/ts_react_zustand_task_tracker/).
 
 ## 👤 Author
 
