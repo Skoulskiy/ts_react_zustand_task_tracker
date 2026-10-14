@@ -73,19 +73,19 @@ function App() {
   const filters = [
     {
       name: 'all',
-      color: 'gray',
+      color: 'bg-gray-500',
     },
     {
       name: 'finished',
-      color: 'green'
+      color: 'bg-green-500'
     },
     {
       name: 'waited',
-      color: 'red'
+      color: 'bg-red-500'
     },
     {
       name: 'active',
-      color: 'yellow'
+      color: 'bg-yellow-500'
     }
   ]
   
@@ -150,7 +150,7 @@ function App() {
         <div className='flex gap-2'>
           {filters.map(filter => (
             <div 
-              className={`w-3 h-3 bg-${filter.color}-500 rounded-full cursor-pointer ${currentFilter === filter.name ? 'border border-blue-200': ''}`} onClick={() => setCurrentFilter(filter.name)}
+              className={`w-3 h-3 ${filter.color} rounded-full cursor-pointer ${currentFilter === filter.name ? 'border border-blue-200': ''}`} onClick={() => setCurrentFilter(filter.name)}
               key={filter.name}
             ></div>
           ))}
