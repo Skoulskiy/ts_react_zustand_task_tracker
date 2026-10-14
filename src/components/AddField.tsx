@@ -35,7 +35,7 @@ export const AddField : React.FC = () => {
         value={value}
         ref={inputRef}
         onChange={(e) => setValue(e.target.value)}
-        className="flex-1 px-4 py-2.5 text-sm bg-white border border-gray-300 rounded-lg outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+        className="min-w-0 flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-base outline-none transition-all focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 sm:text-sm"
         placeholder="Enter task title"
       />
     </form>

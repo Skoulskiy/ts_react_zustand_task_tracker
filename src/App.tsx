@@ -42,7 +42,10 @@ function App() {
       const clientY = 'clientY' in e ? e.clientY : e.touches[0].clientY;
 
       setMenuCoords({
-        x: clientX - parentRect.left,
+        x: Math.min(
+          Math.max(clientX - parentRect.left, 8),
+          Math.max(8, parentRect.width - 200)
+        ),
         y: clientY - parentRect.top,
       });
     }
@@ -134,10 +137,10 @@ function App() {
     return () => window.clearInterval(intervalId);
   }, [tasks]);
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-2xl shadow-sm border border-gray-100 font-sans relative">
+    <main className="mx-auto my-4 w-[calc(100%-2rem)] max-w-lg overflow-x-clip rounded-2xl border border-gray-100 bg-white p-4 font-sans shadow-sm relative sm:my-10 sm:p-6">
       {contextActive && (
         <div 
-          className='flex gap-2 items-center px-4 py-2 bg-white border border-gray-200 rounded-lg absolute shadow-md cursor-pointer hover:bg-gray-50 transition-colors z-30'
+          className='absolute z-30 flex max-w-[calc(100%-1rem)] cursor-pointer items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 shadow-md transition-colors hover:bg-gray-50'
           style={{ top: `${menuCoords.y}px`, left: `${menuCoords.x}px` }}
           onClick={handleDelete}
         >
@@ -145,14 +148,20 @@ function App() {
           <span className='text-sm font-medium'>Delete this task</span>
         </div>
       )}
-      <div className='flex items-center justify-between'>
-        <h1 className="text-xl font-bold text-gray-800 mb-4">My tasks</h1>
-        <div className='flex gap-2'>
+      <div className='mb-4 flex flex-wrap items-center justify-between gap-2'>
+        <h1 className="text-xl font-bold text-gray-800">My tasks</h1>
+        <div className='flex gap-1'>
           {filters.map(filter => (
-            <div 
-              className={`w-3 h-3 ${filter.color} rounded-full cursor-pointer ${currentFilter === filter.name ? 'border border-blue-200': ''}`} onClick={() => setCurrentFilter(filter.name)}
+            <button
+              type="button"
+              aria-label={`Show ${filter.name} tasks`}
+              aria-pressed={currentFilter === filter.name}
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full"
+              onClick={() => setCurrentFilter(filter.name)}
               key={filter.name}
-            ></div>
+            >
+              <span className={`h-3 w-3 rounded-full ${filter.color} ${currentFilter === filter.name ? 'ring-2 ring-blue-200 ring-offset-1' : ''}`} />
+            </button>
           ))}
         </div>
       </div>
@@ -164,19 +173,19 @@ function App() {
           <p className="text-sm text-center text-gray-400 py-4">Task list is empty</p>
         ) : (
           filteredTasks && filteredTasks.map((t) => (
-            <div 
+            <div
               key={t.id} 
-              className="flex items-center justify-between px-4 py-3 bg-gray-50 border border-gray-200/60 rounded-xl text-sm text-gray-700 shadow-3xs"
+              className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 rounded-xl border border-gray-200/60 bg-gray-50 px-3 py-3 text-sm text-gray-700 shadow-3xs sm:gap-3 sm:px-4"
               onContextMenu={(event) => handleContext(event, t)}
               onDoubleClick={(event) => (
                 isMobile && handleContext(event, t) 
               )}
             >
-              <div className='flex items-center gap-2'>
+              <div className='flex min-w-0 items-center gap-2'>
                 {checkStatus(t)}
-                <span className="font-medium">{t.title}</span>
+                <span className="min-w-0 break-words font-medium">{t.title}</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex shrink-0 items-center gap-1 sm:gap-2">
                 <span className="text-xs tabular-nums text-gray-500">
                   {formatTaskTime(getTaskElapsedSeconds(t, now))}
                 </span>
@@ -217,7 +226,7 @@ function App() {
           ))
         )}
       </div>
-    </div>
+    </main>
   );
 }
 
