@@ -2,7 +2,7 @@ import './App.css'
 import { useTask } from './store/useTask'
 import { AddField } from './components/AddField';
 import type { Task } from './types/Task';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocalStorage } from './hooks/useLocaleStorage';
 import { useIsMobile } from './hooks/useIsMobile';
 
@@ -22,7 +22,8 @@ function App() {
 
   const [savedTasks, setSavedTasks] = useLocalStorage<Task[]>('tasks', []);
   const [currentFilter, setCurrentFilter] = useState('all');
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState(0);
+  const hasLoadedTasks = useRef(false);
 
   const [contextActive, setContextActive] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
@@ -98,7 +99,7 @@ function App() {
 
   useEffect(() => {
     setSavedTasks(tasks);
-  }, [tasks]);
+  }, [tasks, setSavedTasks]);
 
   const checkStatus = (task : Task) => {
     const { completed, id, isActive } = task;
@@ -121,8 +122,10 @@ function App() {
   }
 
   useEffect(() => {
+    if (hasLoadedTasks.current) return;
+    hasLoadedTasks.current = true;
     setTasks(savedTasks);
-  }, [])
+  }, [savedTasks, setTasks])
 
   useEffect(() => {
     if (!tasks.some((task) => task.isActive)) return;

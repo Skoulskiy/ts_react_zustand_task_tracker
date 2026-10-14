@@ -1,75 +1,84 @@
-# React + TypeScript + Vite
+# ✅ Task Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **A simple task manager with a built-in time tracker.** Organize your tasks, track focused work time, and keep your progress saved in the browser.
 
-Currently, two official plugins are available:
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Task_Tracker-181717?style=for-the-badge&logo=github)](https://github.com/Skoulskiy/ts_react_zustand_task_tracker)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-🚀_Open_App-brightgreen?style=for-the-badge)](https://skoulskiy.github.io/ts_react_zustand_task_tracker/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 📌 Project Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Task Tracker is a browser-based app for managing everyday tasks and tracking the time spent on them. Create tasks, start or pause a timer, and mark tasks as complete. Your task list and timer progress are saved in the browser, so you can continue where you left off.
 
-## Expanding the ESLint configuration
+## 💡 Engineering Highlights
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* **Typed task model**: task state and timer data are defined with TypeScript.
+* **Centralized state management**: Zustand manages task creation, completion, timer controls, and deletion.
+* **Persistent task data**: tasks and accumulated time are saved in `localStorage`.
+* **Single active timer**: starting a task pauses any other running task.
+* **Static deployment**: GitHub Actions builds and deploys the app to GitHub Pages on pushes to `master`.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Category | Technology |
+| :--- | :--- |
+| **UI** | React 19, TypeScript |
+| **Application State** | Zustand |
+| **Styling** | Tailwind CSS 4 |
+| **Icons** | React Icons |
+| **Build Tool** | Vite |
+| **Code Quality** | ESLint |
+| **Data Persistence** | Browser `localStorage` |
+| **Deployment** | GitHub Actions, GitHub Pages |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 Features
 
+* 📝 **Task management**: add, delete, and mark tasks as completed.
+* ⏱️ **Time tracking**: start, pause, and stop a task timer; stopping saves the elapsed time.
+* 🔒 **Completion guard**: completed tasks cannot be started.
+* ▶️ **One timer at a time**: starting another task pauses the current timer.
+* 🗂️ **Task filters**: view all, active, waiting, or completed tasks.
+* 💾 **Persistent data**: tasks and time are retained in browser storage.
+* 📱 **Responsive interactions**: task deletion is available through the context menu.
+
+## 💻 Local Development
+
+### Prerequisites
+
+* **Node.js**: 20.19+ or 22.12+
+* **npm**
+
+### Installation and Setup
+
+```bash
+git clone https://github.com/Skoulskiy/ts_react_zustand_task_tracker.git
+cd ts_react_zustand_task_tracker
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Create a production build and run the linter:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm run build
+npm run lint
 ```
+
+## 🚀 Deployment
+
+The GitHub Actions workflow in `.github/workflows/deploy.yml` builds and deploys the app to GitHub Pages whenever changes are pushed to `master`.
+
+To enable deployment for the repository:
+
+1. Open **Settings → Pages** on GitHub.
+2. Set **Build and deployment → Source** to **GitHub Actions**.
+3. Push to `master` or manually run the **Deploy to GitHub Pages** workflow from the **Actions** tab.
+
+The published app will be available at:
+
+https://skoulskiy.github.io/ts_react_zustand_task_tracker/
+
+## 👤 Author
+
+* **GitHub**: [@Skoulskiy](https://github.com/Skoulskiy)
